@@ -3,6 +3,7 @@
 import 'package:flutter_bolierplate_example/authentication/authentication.dart';
 import 'package:flutter_bolierplate_example/helpers/helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bolierplate_example/screens/screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_bolierplate_example/constants/constants.dart';
 
@@ -27,11 +28,11 @@ class _AuthGuardState extends State<AuthGuard> {
       Widget handleStateView() {
         switch (auth.status) {
           case AuthGuardStatus.NotAuthenticated:
-            return Scaffold();
+            return HomeScreen();
           case AuthGuardStatus.Authenticated:
-            return Scaffold();
+            return HomeScreen();
           case AuthGuardStatus.SelectedLanguage:
-            return Scaffold();
+            return HomeScreen();
           default:
             return Scaffold(backgroundColor: Colors.white);
         }

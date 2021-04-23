@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bolierplate_example/guards/guards.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'global/locator.dart';
 import 'helpers/device.dart';
@@ -68,9 +69,6 @@ class MyApp extends StatelessWidget {
         title: 'flutter_bolierplate_example',
         navigatorKey: locator<NavigationService>().key,
         debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(),
-          body: Container(),
-        ),
+        home: AuthGuard(),
       ));
 }
