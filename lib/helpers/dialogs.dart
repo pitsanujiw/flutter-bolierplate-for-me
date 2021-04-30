@@ -13,49 +13,48 @@ class Dialogs {
   static final NavigationService _navigator = locator<NavigationService>();
 
   static Future<bool> _baseDialog({
-    @required String title,
-    @required String content,
-    @required List<Widget> actions,
+    required String title,
+    required String content,
+    required List<Widget> actions,
     bool barrierDismissible = true,
-  }) {
+  }) async {
     return Platform.isIOS
-        ? showCupertinoDialog(
+        ? await showCupertinoDialog(
             context: _navigator.overlayContext,
             builder: (context) => CupertinoAlertDialog(
               title: Text(title),
               content: Text(content),
-              actions: actions ?? [].toList(),
+              actions: actions,
             ),
-          )
-        : showDialog(
-              context: _navigator.overlayContext,
-              barrierDismissible: barrierDismissible,
-              builder: (context) {
-                return WillPopScope(
-                  onWillPop: () async => barrierDismissible,
-                  child: AlertDialog(
-                    title: Text(title.toString()),
-                    content: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: Device.maxWidth / 2,
-                      ),
-                      child: Text(content.toString()),
+          ) as bool
+        : await showDialog(
+            context: _navigator.overlayContext,
+            barrierDismissible: barrierDismissible,
+            builder: (context) {
+              return WillPopScope(
+                onWillPop: () async => barrierDismissible,
+                child: AlertDialog(
+                  title: Text(title.toString()),
+                  content: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: Device.maxWidth / 2,
                     ),
-                    actions: actions ?? [],
+                    child: Text(content.toString()),
                   ),
-                );
-              },
-            ) ??
-            false;
+                  actions: actions,
+                ),
+              );
+            },
+          ) as bool;
   }
 
   static Future<bool> confirmation({
-    @required String title,
-    @required String content,
-    String confirmText,
-    String cancelText,
-  }) {
-    return _baseDialog(
+    required String title,
+    required String content,
+    String? confirmText,
+    String? cancelText,
+  }) async {
+    return await _baseDialog(
       title: title,
       content: content,
       actions: [
@@ -74,7 +73,7 @@ class Dialogs {
           child: Text(
             (confirmText ?? 'ยืนยัน').toUpperCase(),
             style: TextStyle(
-        color: ColorsList.blueActive,
+              color: ColorsList.blueActive,
               fontSize: 16,
             ),
           ),
@@ -84,9 +83,9 @@ class Dialogs {
   }
 
   static Future<bool> notify({
-    @required String title,
-    @required String content,
-    String okayText,
+    required String title,
+    required String content,
+    String? okayText,
     bool barrierDismissible = true,
   }) {
     return _baseDialog(
@@ -109,8 +108,8 @@ class Dialogs {
   }
 
   static Future<T> loading<T>({
-    @required Future future,
-    String loadingText,
+    required Future future,
+    String? loadingText,
   }) async {
     Device.dismissKeyboard();
 

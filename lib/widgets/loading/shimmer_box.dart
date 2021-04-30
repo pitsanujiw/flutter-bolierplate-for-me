@@ -8,12 +8,12 @@ enum ShimmerShape {
 
 class ShimmerBox extends StatelessWidget {
   final ShimmerShape shape;
-  final double size;
-  final double width;
-  final double height;
+  final double? size;
+  final double? width;
+  final double? height;
 
   const ShimmerBox({
-    Key key,
+    Key? key,
     this.shape = ShimmerShape.rectangle,
     this.size,
     this.width,
@@ -21,7 +21,7 @@ class ShimmerBox extends StatelessWidget {
   }) : super(key: key);
 
   const ShimmerBox.title({
-    Key key,
+    Key? key,
     this.shape = ShimmerShape.rectangle,
     this.width = 200,
     this.height = 30,
@@ -29,7 +29,7 @@ class ShimmerBox extends StatelessWidget {
         super(key: key);
 
   const ShimmerBox.square({
-    Key key,
+    Key? key,
     this.shape = ShimmerShape.square,
     this.size = 7,
   })  : this.width = null,
@@ -37,7 +37,7 @@ class ShimmerBox extends StatelessWidget {
         super(key: key);
 
   const ShimmerBox.circle({
-    Key key,
+    Key? key,
     this.shape = ShimmerShape.circle,
     this.size = 7,
   })  : this.width = null,
@@ -51,8 +51,8 @@ class ShimmerBox extends StatelessWidget {
         return ClipOval(
           child: Container(
             color: Colors.white,
-            height: this.size * 10,
-            width: this.size * 10,
+            height: this.size! * 10,
+            width: this.size! * 10,
           ),
         );
 
@@ -61,8 +61,8 @@ class ShimmerBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           child: Container(
             color: Colors.white,
-            height: this.size * 10,
-            width: this.size * 10,
+            height: this.size! * 10,
+            width: this.size! * 10,
           ),
         );
 

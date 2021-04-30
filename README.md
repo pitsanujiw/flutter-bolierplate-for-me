@@ -18,3 +18,16 @@ $ flutter packages pub run build_runner build --delete-conflicting-outputs
 
 $ flutter pub run build_runner serve --delete-conflicting-outputs
 ```
+
+## null-safety
+
+https://stackoverflow.com/questions/60068435/what-is-null-safety-in-dart 
+
+migration dependencies
+```sh
+$ dart pub outdated --mode=null-safety
+```
+
+```sh
+$ dart pub upgrade --null-safety
+```

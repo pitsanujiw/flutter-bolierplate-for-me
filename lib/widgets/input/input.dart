@@ -7,38 +7,38 @@ import 'package:flutter/services.dart';
 
 class Input extends StatelessWidget {
   final TextInputType keyboardType;
-  final String labelText;
-  final String hintText;
+  final String? labelText;
+  final String? hintText;
   final bool loading;
-  final String initialValue;
+  final String? initialValue;
   final bool obscureText;
   final int maxLines;
   final int minLines;
-  final Function(String) onSaved;
-  final Function(String) onChanged;
-  final Function(String) validator;
+  final Function(String)? onSaved;
+  final Function(String)? onChanged;
+  final Function(String)? validator;
   final AutovalidateMode autovalidationMode;
   final List<TextInputFormatter> inputFormatters;
   final TextCapitalization textCapitalization;
-  final FloatingLabelBehavior floatingLabelBehavior;
-  final Widget prefix;
-  final Widget prefixIcon;
-  final String prefixText;
-  final Widget suffix;
-  final GestureTapCallback onTap;
-  final EdgeInsets padding;
-  final int maxLength;
-  final String counterText;
-  final TextEditingController controller;
-  final TextInputAction textInputAction;
-  final FocusNode focusNode;
-  final Widget suffixIcon;
-  final Color fillColor;
+  final FloatingLabelBehavior? floatingLabelBehavior;
+  final Widget? prefix;
+  final Widget? prefixIcon;
+  final String? prefixText;
+  final Widget? suffix;
+  final GestureTapCallback? onTap;
+  final EdgeInsets? padding;
+  final int? maxLength;
+  final String? counterText;
+  final TextEditingController? controller;
+  final TextInputAction? textInputAction;
+  final FocusNode? focusNode;
+  final Widget? suffixIcon;
+  final Color? fillColor;
 
   const Input({
-    Key key,
-    @required this.keyboardType,
-    @required this.labelText,
+    Key? key,
+    required this.keyboardType,
+    required this.labelText,
     this.onSaved,
     this.floatingLabelBehavior,
     this.onChanged,
@@ -75,7 +75,7 @@ class Input extends StatelessWidget {
     const double borderRadius = 5;
 
     return Padding(
-      padding: this.padding,
+      padding: this.padding!,
       child: TextFormField(
         cursorColor: Colors.blue,
         cursorHeight: 22,
@@ -112,7 +112,7 @@ class Input extends StatelessWidget {
                 )
               : null,
           prefixText: this.prefixText?.isNotEmpty ?? false
-              ? "${this.prefixText.trim()} "
+              ? "${this.prefixText!.trim()} "
               : null,
           suffix: this.suffix,
           prefixStyle: TextStyle(
@@ -154,9 +154,15 @@ class Input extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        onSaved: this.onSaved,
-        onChanged: this.onChanged,
-        validator: this.validator,
+        onSaved: this.onSaved != null
+            ? (String? value) => this.onSaved!(value!)
+            : null,
+        onChanged: this.onChanged != null
+            ? (String? value) => this.onChanged!(value!)
+            : null,
+        validator: this.validator != null
+            ? (String? value) => this.validator!(value!)
+            : null,
         textInputAction: this.textInputAction,
         focusNode: this.focusNode,
       ),

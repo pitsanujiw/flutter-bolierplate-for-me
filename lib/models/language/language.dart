@@ -11,8 +11,8 @@ class Language {
   final Map<String, dynamic> value;
 
   Language({
-    this.code,
-    this.value,
+    required this.code,
+    required this.value,
   });
 
   factory Language.fromJson(Map<String, dynamic> json) =>

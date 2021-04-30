@@ -8,10 +8,11 @@ class NavigationService {
   GlobalKey<NavigatorState> get key => _navigatorKey;
 
   /// The build context of the current state
-  BuildContext get context => _navigatorKey?.currentState?.context;
+  BuildContext get context => _navigatorKey.currentState!.context;
 
   /// The build context for overlays
-  BuildContext get overlayContext => _navigatorKey?.currentState?.overlay?.context;
+  BuildContext get overlayContext =>
+      _navigatorKey.currentState!.overlay!.context;
 
   void _unfocus() {
     FocusScopeNode currentFocus = FocusScope.of(overlayContext);
@@ -21,7 +22,7 @@ class NavigationService {
     }
   }
 
-  Future<T> push<T extends Object>(
+  Future<T?> push<T extends Object>(
     Widget view, {
     bool fullscreenDialog = false,
   }) async {
@@ -29,7 +30,7 @@ class NavigationService {
 
     await Future.delayed(Duration(milliseconds: 100));
 
-    return _navigatorKey.currentState.push(
+    return _navigatorKey.currentState!.push(
       Platform.isIOS
           ? CupertinoPageRoute(
               builder: (context) => view,
@@ -39,16 +40,16 @@ class NavigationService {
               builder: (context) => view,
               fullscreenDialog: fullscreenDialog,
             ),
-    );
+    ) as Future<T?>;
   }
 
   Future<T> pushReplacement<T extends Object>(
     Widget view, {
     bool fullscreenDialog = false,
-  }) {
+  }) async {
     _unfocus();
 
-    return _navigatorKey.currentState.pushReplacement(
+    return await _navigatorKey.currentState!.pushReplacement(
       Platform.isIOS
           ? CupertinoPageRoute(
               builder: (context) => view,
@@ -58,16 +59,16 @@ class NavigationService {
               builder: (context) => view,
               fullscreenDialog: fullscreenDialog,
             ),
-    );
+    ) as T;
   }
 
   Future<T> pushAndRemoveUntil<T extends Object>(
     Widget view, {
     bool fullscreenDialog = false,
-  }) {
+  }) async {
     _unfocus();
 
-    return _navigatorKey.currentState.pushAndRemoveUntil(
+    return await _navigatorKey.currentState!.pushAndRemoveUntil(
       Platform.isIOS
           ? CupertinoPageRoute(
               builder: (context) => view,
@@ -78,18 +79,17 @@ class NavigationService {
               fullscreenDialog: fullscreenDialog,
             ),
       (Route<dynamic> route) => route.isFirst,
-    );
+    ) as T;
   }
 
-  void pop<T>([T result]) {
+   T? pop<T extends Object?>([T? result]) {
     _unfocus();
-
-    return _navigatorKey.currentState.pop(result ?? true);
+    _navigatorKey.currentState!.pop(result ?? true);
   }
 
   Future<void> popAll() async {
     _unfocus();
 
-    return _navigatorKey.currentState.popUntil((route) => route.isFirst);
+    return _navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

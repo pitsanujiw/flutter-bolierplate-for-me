@@ -9,13 +9,13 @@ class Toast {
   static final NavigationService _navigator = locator<NavigationService>();
 
   static _baseToast({
-    String title,
-    @required Color backgroundColor,
+    String? title,
+    required Color backgroundColor,
     Color textColor = Colors.black,
-    @required String message,
-    Function onTap,
+    required String message,
+    Function? onTap,
   }) {
-    Flushbar flush;
+    Flushbar? flush;
     Duration duration = Duration(seconds: (message.length % 5) + 3);
 
     flush = Flushbar<bool>(
@@ -49,7 +49,7 @@ class Toast {
       borderRadius: BorderRadius.all(Radius.circular(5)),
       mainButton: GestureDetector(
         onTap: () {
-          flush.dismiss(true);
+          flush!.dismiss(true);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -76,11 +76,11 @@ class Toast {
 
   static void error({
     IconData icon = Icons.error_outline_rounded,
-    String title,
-    String message,
+    String? title,
+    String? message,
   }) {
     _baseToast(
-      title: title,
+      title: title!,
       textColor: Colors.white,
       message: message ?? 'ERROR',
       backgroundColor: Colors.redAccent,
@@ -88,40 +88,39 @@ class Toast {
   }
 
   static void success({
-    String title,
-    @required String message,
-    Function onTap,
+    String? title,
+    required String message,
+    Function? onTap,
   }) {
     _baseToast(
       title: title,
       textColor: Colors.white,
       message: message,
       backgroundColor: Colors.green,
-      onTap: onTap,
+      onTap: onTap!,
     );
   }
 
   static void info({
-    String title,
-    @required String message,
-    Function onTap,
+    String? title,
+    required String message,
+    Function? onTap,
   }) {
     _baseToast(
-      title: title,
+      title: title!,
       textColor: Colors.white,
       message: message,
       backgroundColor: Colors.lightBlue,
-      onTap: onTap,
+      onTap: onTap!,
     );
   }
 
-  static void errorResponse(ApiResponse response, {String message}) {
-    if (response.code == 401) {
-      // Inject.auth.logout();
+  static void errorResponse(ApiResponse? response, {String? message}) {
+    if (response!.code == 401) {
       error(
         message: 'หมดอายุในการเข้าถึงระบบ กรุณาเข้าสู่ระบบใหม่อีกครั้ง',
       );
-    } else if (response.code >= 400 && response.code <= 499) {
+    } else if (response.code! >= 400 && response.code! <= 499) {
       error(
         message: message ?? 'พบข้อผิดพลาด กรุณาตรวจสอบ',
       );
@@ -129,8 +128,8 @@ class Toast {
       switch (response.status) {
         case ResponseStatus.networkError:
           error(
-            title: 'ไม่สามารถเข้าถึงเครือขาย',
-            message: 'ไม่สามารถเข้าถึงเครือขายได้',
+            title: 'ไม่สามารถเข้าถึงเครือข่าย',
+            message: 'ไม่สามารถเข้าถึงเครือข่ายได้',
           );
           break;
 

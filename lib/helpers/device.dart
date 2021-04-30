@@ -13,7 +13,7 @@ class Device {
     FocusScopeNode currentFocus = FocusScope.of(_navigator.overlayContext);
 
     if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-      currentFocus.focusedChild.unfocus();
+      currentFocus.focusedChild!.unfocus();
     }
   }
 

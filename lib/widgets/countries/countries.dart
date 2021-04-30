@@ -23,7 +23,7 @@ class CountriesView extends ConsumerWidget {
       ),
       body: Scrollbar(
         child: ListView.separated(
-          itemCount: model.filteredCountries?.length ?? 0,
+          itemCount: model.filteredCountries.length,
           itemBuilder: (context, index) {
             return Material(
               color: Colors.white,

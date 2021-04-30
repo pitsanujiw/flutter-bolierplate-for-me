@@ -16,7 +16,7 @@ class AuthenticationRepository extends BaseNotifier {
   AuthGuardStatus _status = AuthGuardStatus.Loading;
   AuthGuardStatus get status => _status;
 
-  AuthenticationRepository({I18nRepository i18n}) {
+  AuthenticationRepository({required I18nRepository i18n}) {
     i18n.setupLocale().then((isSuccess) {
       if (isSuccess) {
         if (_storage.accessToken != null) {

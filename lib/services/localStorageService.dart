@@ -6,10 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bolierplate_example/global/global.dart';
 
 class LocalStorageService {
-  static LocalStorageService _instance;
-  static SharedPreferences _preferences;
+  static LocalStorageService? _instance;
+  static SharedPreferences? _preferences;
 
-  static Future<LocalStorageService> getInstance() async {
+  static Future<LocalStorageService?> getInstance() async {
     if (_instance == null) {
       _instance = LocalStorageService();
     }
@@ -22,39 +22,44 @@ class LocalStorageService {
   }
 
   // Base =======================================================================
-  T _getData<T>(String key) {
+  T? _getData<T>(String key) {
     if (_preferences == null) return null;
-    T value = _preferences.get("${env.localStorageKey}_$key");
-    return jsonDecode(value ?? "null");
+    Object? value = _preferences!.get("${env.localStorageKey}_$key");
+    return value != null ? jsonDecode(value as String) : null;
   }
 
   Future<bool> _setData<T>(String key, T content) async {
-    return await _preferences.setString(
+    return await _preferences!.setString(
       "${env.localStorageKey}_$key",
       jsonEncode(content),
     );
   }
 
   Future<bool> _removeData<T>(String key) async {
-    return await _preferences.remove("${env.localStorageKey}_$key");
+    return await _preferences!.remove("${env.localStorageKey}_$key");
   }
 
   Future<void> removeAllData() async {
-    await _preferences.clear();
+    await _preferences!.clear();
   }
   // Auth =======================================================================
 
-  String get accessToken {
-    return _getData("accessToken") as String;
+  String? get accessToken {
+    String? accessToken = _getData("accessToken");
+    return accessToken != null ? accessToken : null;
   }
 
   Future<void> setAccessToken(String value) async {
-    return await _setData("accessToken", value);
+    await _setData("accessToken", value);
   }
 
-  Future<bool> removeAccessToken() async {
-    return await _removeData("accessToken");
+  Future<List<bool>> removeAccessToken() async {
+    return await Future.wait([
+      _removeData("accessToken"),
+    ]);
   }
+
+  // Future maybe use BIOMETRIC AUTHENTICATION =======================================
 
   bool get biometricEnabled {
     var enabled = _getData(
@@ -65,11 +70,11 @@ class LocalStorageService {
   }
 
   Future<void> setBiometricEnabled(bool value) async {
-    return await _setData("biometricEnabled", value);
+    await _setData("biometricEnabled", value);
   }
 
   // Locale =======================================================================
-  Language get selectedLanguage {
+  Language? get selectedLanguage {
     var language = _getData("lang");
     return language != null ? Language.fromJson(language) : null;
   }

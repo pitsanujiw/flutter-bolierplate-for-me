@@ -6,9 +6,9 @@ class SearchField extends StatelessWidget {
   final bool autoFocus;
 
   const SearchField({
-    Key key,
-    @required this.controller,
-    @required this.hintText,
+    Key? key,
+    required this.controller,
+    required this.hintText,
     this.autoFocus = true,
   }) : super(key: key);
 

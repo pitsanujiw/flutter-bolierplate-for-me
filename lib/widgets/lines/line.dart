@@ -7,7 +7,7 @@ class Line extends StatelessWidget {
   final double thickness;
 
   const Line({
-    Key key,
+    Key? key,
     this.margin = 0,
     this.indent = 15,
     this.endIndent = 15,
@@ -15,7 +15,7 @@ class Line extends StatelessWidget {
   }) : super(key: key);
 
   const Line.full({
-    Key key,
+    Key? key,
     this.margin = 0,
     this.indent = 0,
     this.endIndent = 0,

@@ -13,7 +13,7 @@ import 'utils/utils.dart';
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
-    GestureBinding.instance.resamplingEnabled = true;
+    GestureBinding.instance!.resamplingEnabled = true;
     // Set status bar color
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

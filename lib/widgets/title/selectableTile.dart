@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bolierplate_example/widgets/widgets.dart';
-import 'package:flutter_bolierplate_example/common/common.dart';
+import 'package:carinspection/widgets/widgets.dart';
+import 'package:carinspection/common/common.dart';
 
 enum SelectableType {
   radio,
@@ -12,15 +12,15 @@ enum SelectableType {
 
 class SelectableTile extends StatelessWidget {
   final SelectableType type;
-  final String text;
-  final bool isSelected;
+  final String? text;
+  final bool? isSelected;
   final bool enabled;
-  final Function onChanged;
+  final Function? onChanged;
   final EdgeInsets contentPadding;
   final bool onLeading;
 
   const SelectableTile.left({
-    Key key,
+    Key? key,
     this.type = SelectableType.checkbox,
     @required this.text,
     @required this.isSelected,
@@ -34,7 +34,7 @@ class SelectableTile extends StatelessWidget {
         super(key: key);
 
   const SelectableTile.right({
-    Key key,
+    Key? key,
     this.type = SelectableType.checkbox,
     @required this.text,
     @required this.isSelected,
@@ -60,12 +60,12 @@ class SelectableTile extends StatelessWidget {
     Widget handleType() {
       switch (this.type) {
         case SelectableType.radio:
-          return Radio(
+          return Radio<bool>(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             activeColor: ColorsList.blueActive,
-            value: this.isSelected,
+            value: this.isSelected!,
             groupValue: true,
-            onChanged: (_) => this.onChanged(),
+            onChanged: (_) => this.onChanged!(),
           );
 
         case SelectableType.tick:
@@ -78,8 +78,8 @@ class SelectableTile extends StatelessWidget {
               padding: const EdgeInsets.only(right: 20),
               child: CupertinoSwitch(
                 activeColor: ColorsList.blueActive,
-                value: this.isSelected,
-                onChanged: (_) => this.onChanged(),
+                value: this.isSelected!,
+                onChanged: (_) => this.onChanged!(),
               ),
             ),
           );
@@ -88,12 +88,12 @@ class SelectableTile extends StatelessWidget {
           return Checkbox(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             value: this.isSelected,
-            onChanged: (_) => this.onChanged(),
+            onChanged: (_) => this.onChanged!(),
           );
       }
     }
 
-    return this.onLeading ?? false
+    return this.onLeading
         ? BaseTile(
             padding: this.contentPadding,
             onTap: this.onChanged,

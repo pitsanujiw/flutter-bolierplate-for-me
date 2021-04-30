@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bolierplate_example/global/global.dart';
 import 'package:flutter_bolierplate_example/utils/utils.dart';
 
@@ -37,7 +36,7 @@ class ApiService {
     },
   );
 
-  String _token;
+  late String _token;
   String get token => _token;
 
   // constructor
@@ -59,18 +58,18 @@ class ApiService {
     if (!(response.data is Map<String, dynamic>)) {
       Log.wtf(
         {
-          "method": response.request.method,
+          "method": response.requestOptions.method,
           "status_code": response.statusCode,
-          "path": response.request.path,
-          "data": response.request.data,
-          "queryParameters": response.request.queryParameters,
+          "path": response.requestOptions.path,
+          "data": response.requestOptions.data,
+          "queryParameters": response.requestOptions.queryParameters,
           "message": response.data,
-          "headers": response.request.headers,
+          "headers": response.requestOptions.headers,
         },
       );
 
       return ApiResponse.fromStatusCode(
-        statusCode: response?.statusCode ?? 500,
+        statusCode: response.statusCode ?? 500,
       );
     }
 
@@ -80,20 +79,20 @@ class ApiService {
   ApiResponse _handleDioError(DioError error, StackTrace trace) {
     dynamic data = {};
 
-    if (error.request.data is FormData) {
-      data = error.request.data.toString();
+    if (error.requestOptions.data is FormData) {
+      data = error.requestOptions.data.toString();
     } else {
-      data = error.request.data;
+      data = error.requestOptions.data;
     }
 
     Map<String, dynamic> params = {
-      "method": error.request.method,
-      "status_code": error?.response?.statusCode,
-      "path": error.request.path,
+      "method": error.requestOptions.method,
+      "status_code": error.response!.statusCode,
+      "path": error.requestOptions.path,
       "data": data,
-      "queryParameters": error.request.queryParameters,
-      "message": error?.response?.data ?? error?.message,
-      "headers": error.request.headers,
+      "queryParameters": error.requestOptions.queryParameters,
+      "message": error.requestOptions.data ?? error.message,
+      "headers": error.requestOptions.headers,
     };
 
     Log.error(
@@ -110,13 +109,13 @@ class ApiService {
     // }
 
     switch (error.type) {
-      case DioErrorType.CONNECT_TIMEOUT:
+      case DioErrorType.connectTimeout:
         return ApiResponse.networkError();
 
-      case DioErrorType.SEND_TIMEOUT:
+      case DioErrorType.sendTimeout:
         return ApiResponse.networkError();
 
-      case DioErrorType.RECEIVE_TIMEOUT:
+      case DioErrorType.receiveTimeout:
         return ApiResponse.networkError();
 
       default:
@@ -126,7 +125,7 @@ class ApiService {
     }
 
     return ApiResponse.fromStatusCode(
-      statusCode: error?.response?.statusCode,
+      statusCode: error.response!.statusCode!,
     );
   }
 
@@ -162,7 +161,7 @@ class ApiService {
     dynamic data,
     Map<String, dynamic> queryParameters = const {},
     Map<String, dynamic> headers = const {},
-    Function(int, int) onSendProgress,
+    Function(int, int)? onSendProgress,
   }) async {
     try {
       path = path[0] == "/" ? path : "/$path";
@@ -269,10 +268,10 @@ class ApiService {
 }
 
 class ApiResponse {
-  final ResponseStatus status;
+  final ResponseStatus? status;
   final dynamic message;
   final dynamic data;
-  final int code;
+  final int? code;
 
   ApiResponse({
     this.status,
@@ -286,13 +285,13 @@ class ApiResponse {
     return ApiResponse(
       status: ResponseStatus.success,
       code: json["code"] ?? 200,
-      message: json["message"]?? "",
+      message: json["message"] ?? "",
       data: json["data"] ?? [],
     );
   }
 
   factory ApiResponse.fromStatusCode({
-    @required int statusCode,
+    required int statusCode,
   }) {
     if (statusCode >= 400 && statusCode <= 499) {
       return ApiResponse(

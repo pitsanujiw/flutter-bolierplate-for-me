@@ -20,17 +20,17 @@ enum ImageShape {
 
 class EasyImage extends StatelessWidget {
   final ImageType type;
-  final String imageUrl;
-  final String assetPath;
-  final Uint8List byte;
-  final File file;
+  final String? imageUrl;
+  final String? assetPath;
+  final Uint8List? byte;
+  final File? file;
   final double size;
   final ImageShape shape;
   final BoxFit fit;
 
   const EasyImage.network({
-    Key key,
-    @required this.imageUrl,
+    Key? key,
+    required this.imageUrl,
     this.size = 7,
     this.shape = ImageShape.square,
     this.fit = BoxFit.cover,
@@ -41,7 +41,7 @@ class EasyImage extends StatelessWidget {
         super(key: key);
 
   const EasyImage.asset({
-    Key key,
+    Key? key,
     @required this.assetPath,
     this.size = 7,
     this.shape = ImageShape.square,
@@ -53,7 +53,7 @@ class EasyImage extends StatelessWidget {
         super(key: key);
 
   const EasyImage.memory({
-    Key key,
+    Key? key,
     @required this.byte,
     this.size = 7,
     this.shape = ImageShape.square,
@@ -65,7 +65,7 @@ class EasyImage extends StatelessWidget {
         super(key: key);
 
   const EasyImage.file({
-    Key key,
+    Key? key,
     @required this.file,
     this.size = 7,
     this.shape = ImageShape.square,
@@ -163,7 +163,7 @@ class EasyImage extends StatelessWidget {
               placeholder: _placeholder,
               imageErrorBuilder: handleErrorBuilder,
               image: MemoryImage(
-                this.byte,
+                this.byte!,
               ),
             ),
           );
@@ -179,7 +179,7 @@ class EasyImage extends StatelessWidget {
               placeholder: _placeholder,
               imageErrorBuilder: handleErrorBuilder,
               image: FileImage(
-                this.file,
+                this.file!,
               ),
             ),
           );
@@ -195,7 +195,7 @@ class EasyImage extends StatelessWidget {
               placeholder: _placeholder,
               imageErrorBuilder: handleErrorBuilder,
               image: AssetImage(
-                this.assetPath,
+                this.assetPath!,
               ),
             ),
           );

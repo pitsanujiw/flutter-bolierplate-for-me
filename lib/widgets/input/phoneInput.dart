@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bolierplate_example/widgets/widgets.dart';
 
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 
 import 'package:flutter_bolierplate_example/global/global.dart';
 import 'package:flutter_bolierplate_example/services/services.dart';
 import 'package:flutter_bolierplate_example/utils/utils.dart';
-import 'package:flutter_bolierplate_example/widgets/widgets.dart';
 
 class PhoneInput extends StatefulWidget {
   final String labelText;
-  final String phoneNumber;
-  final Function(String, String) onSaved;
+  final String? phoneNumber;
+  final Function(String, String)? onSaved;
   final EdgeInsets padding;
-  final Color fillColor;
-  final Function(String) validator;
+  final Color? fillColor;
+  final Function(String)? validator;
 
   const PhoneInput({
-    Key key,
+    Key? key,
     this.validator,
-    @required this.labelText,
+    required this.labelText,
     this.phoneNumber,
-    @required this.onSaved,
+    required this.onSaved,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 25,
       vertical: 5,
@@ -39,23 +39,22 @@ class _PhoneInputState extends State<PhoneInput> {
   }).first;
 
   Future<void> _selectCountry() async {
-    Country selectedCountry = await locator<NavigationService>().push(
+    Country? selectedCountry = await locator<NavigationService>().push(
       CountriesView(),
       fullscreenDialog: true,
-    );
+    ) as Country?;
 
-    if (selectedCountry != null) {
+    if (selectedCountry != null)
       this.setState(() {
         _selectedCountry = selectedCountry;
       });
-    }
   }
 
   void _onSaved(String number) {
     String formalisedNumber = "${_selectedCountry.dialCode}$number";
 
     FlutterLibphonenumber().parse(formalisedNumber).then((result) {
-      this.widget.onSaved(result["national"], result['country_code']);
+      this.widget.onSaved!(result["national"], result['country_code']);
     });
   }
 
@@ -65,12 +64,12 @@ class _PhoneInputState extends State<PhoneInput> {
       FlutterLibphonenumber()
           .parse(this.widget.phoneNumber.toString())
           .then((result) {
-        List<Country> filteredCountry = countries?.where((country) {
+        List<Country> filteredCountry = countries.where((country) {
           return country.dialCode == "+${result["country_code"]}";
-        })?.toList();
+        }).toList();
 
         this.setState(() {
-          if (filteredCountry?.isNotEmpty ?? false) {
+          if (filteredCountry.isNotEmpty) {
             _controller.text = result["national_number"];
             _selectedCountry = filteredCountry.first;
           } else {

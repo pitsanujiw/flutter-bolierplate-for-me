@@ -1,5 +1,3 @@
-// import 'dart:async';
-
 import 'package:flutter_bolierplate_example/authentication/authentication.dart';
 import 'package:flutter_bolierplate_example/helpers/helpers.dart';
 import 'package:flutter/material.dart';

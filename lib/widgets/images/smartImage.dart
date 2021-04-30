@@ -10,16 +10,16 @@ enum SmartImageType {
 
 class SmartImage extends StatelessWidget {
   final SmartImageType type;
-  final String imageUrl;
-  final String assetPath;
-  final Uint8List byte;
+  final String? imageUrl;
+  final String? assetPath;
+  final Uint8List? byte;
   final BoxFit fit;
   final double width;
   final double height;
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   const SmartImage.network({
-    Key key,
+    Key? key,
     @required this.imageUrl,
     this.fit = BoxFit.cover,
     this.width = 100,
@@ -31,7 +31,7 @@ class SmartImage extends StatelessWidget {
         super(key: key);
 
   const SmartImage.asset({
-    Key key,
+    Key? key,
     @required this.assetPath,
     this.fit = BoxFit.cover,
     this.width = 100,
@@ -43,7 +43,7 @@ class SmartImage extends StatelessWidget {
         super(key: key);
 
   const SmartImage.memory({
-    Key key,
+    Key? key,
     @required this.byte,
     this.fit = BoxFit.cover,
     this.width = 100,
@@ -94,14 +94,13 @@ class SmartImage extends StatelessWidget {
             imageUrl: parseImageUrl(),
           ),
         );
-        break;
 
       case SmartImageType.memory:
-        image = MemoryImage(this.byte);
+        image = MemoryImage(this.byte!);
         break;
 
       default:
-        image = AssetImage(this.assetPath);
+        image = AssetImage(this.assetPath!);
         break;
     }
 

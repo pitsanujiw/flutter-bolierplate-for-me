@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-// import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,13 +17,13 @@ class I18nRepository extends BaseNotifier {
   // final ApiService _api = locator<ApiService>();
   final LocalStorageService _storage = locator<LocalStorageService>();
 
-  Language _selectedLanguage;
+  late Language _selectedLanguage;
   Language get selectedLanguage => _selectedLanguage;
   // methods
   Future<bool> setupLocale() async {
     if (_storage.selectedLanguage != null) {
-      _selectedLanguage = _storage.selectedLanguage;
-      await updateLocale(_storage.selectedLanguage.code);
+      _selectedLanguage = _storage.selectedLanguage!;
+      await updateLocale(_storage.selectedLanguage!.code!);
       return true;
     }
     return false;
@@ -56,7 +55,7 @@ class I18nRepository extends BaseNotifier {
   String tt(
     String key, {
     dynamic value, // if only have single value
-    Map<String, dynamic> data, // if have multiple value
+    Map<String, dynamic>? data, // if have multiple value
   }) {
     try {
       List<String> branches = key.split(".");
@@ -81,7 +80,7 @@ class I18nRepository extends BaseNotifier {
       }
 
       if (data?.isNotEmpty ?? false) {
-        data.forEach((key, value) {
+        data!.forEach((key, value) {
           lastestNest = lastestNest.replaceAll("{$key}", value.toString());
         });
       }
@@ -91,7 +90,7 @@ class I18nRepository extends BaseNotifier {
       Log.wtf({
         "key": key,
         "data": data,
-        "language_code": _selectedLanguage?.code,
+        "language_code": _selectedLanguage.code,
       });
 
       return key;

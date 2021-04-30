@@ -1,3 +1,4 @@
+import 'package:flutter_bolierplate_example/common/common.dart';
 import 'package:flutter_bolierplate_example/helpers/helpers.dart';
 import 'package:flutter_bolierplate_example/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ class Loading extends StatelessWidget {
   final double size;
 
   const Loading({
-    Key key,
+    Key? key,
     // this.text,
     this.size = 3,
   }) : super(key: key);
@@ -27,7 +28,7 @@ class Loading extends StatelessWidget {
               height: size * 10,
               width: size * 10,
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue[900]),
+                valueColor: AlwaysStoppedAnimation<Color>(ColorsList.blueActive),
               ),
             ),
           ],

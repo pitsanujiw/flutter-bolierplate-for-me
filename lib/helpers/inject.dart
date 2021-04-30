@@ -29,8 +29,6 @@ class Inject {
   }
 
   static Future<void> updateLocale(String languageCode) async {
-    return await _navigator.context
-        .read(i18nRepository)
-        .updateLocale(languageCode);
+    await _navigator.context.read(i18nRepository).updateLocale(languageCode);
   }
 }

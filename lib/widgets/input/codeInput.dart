@@ -4,11 +4,11 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter_bolierplate_example/utils/utils.dart';
 
 class CodeField extends StatelessWidget {
-  final Function(String) onSaved;
-  final Function(String) onChanged;
+  final Function(String)? onSaved;
+  final Function(String)? onChanged;
 
   const CodeField({
-    Key key,
+    Key? key,
     this.onSaved,
     this.onChanged,
   }) : super(key: key);
@@ -19,9 +19,9 @@ class CodeField extends StatelessWidget {
       width: 300,
       child: PinCodeTextField(
         backgroundColor: Colors.transparent,
-        validator: Validator.verificationCode,
-        onSaved: this.onSaved,
-        onChanged: this.onChanged,
+        validator: (String? value) => Validator.verificationCode(value!),
+        onSaved: (String? value) => this.onSaved!(value!),
+        onChanged: (String? value) => this.onChanged!(value!),
         keyboardType: TextInputType.numberWithOptions(
           signed: false,
           decimal: false,

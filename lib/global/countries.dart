@@ -7,12 +7,12 @@ class Country {
   final String dialCode;
 
   Country({
-    this.numCode,
-    this.codeShort,
-    this.codeLong,
-    this.name,
-    this.nationality,
-    this.dialCode,
+    required this.numCode,
+    required this.codeShort,
+    required this.codeLong,
+    required this.name,
+    required this.nationality,
+    required this.dialCode,
   });
 
   Map<String, dynamic> toJson() {
@@ -27,8 +27,6 @@ class Country {
   }
 
   factory Country.fromJson(Map<String, dynamic> map) {
-    if (map == null) return null;
-
     return Country(
       numCode: map["num_code"],
       codeShort: map["alpha_2_code"],

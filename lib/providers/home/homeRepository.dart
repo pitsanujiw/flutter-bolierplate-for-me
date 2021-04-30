@@ -6,9 +6,9 @@ final AutoDisposeChangeNotifierProvider<HomeRepository> homeRepository =
         (ref) => HomeRepository());
 
 class HomeRepository extends BaseNotifier {
-  String _title;
+  String? _title;
 
-  String get title => _title;
+  String? get title => _title;
 
   void setTitle(String title) {
     _title = title;

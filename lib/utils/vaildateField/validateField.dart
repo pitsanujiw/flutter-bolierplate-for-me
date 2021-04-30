@@ -1,23 +1,25 @@
+import 'package:flutter_bolierplate_example/global/global.dart';
+
 class Validator {
-  // static String email(String value) {
-  //   if (value?.isEmpty ?? true) {
-  //     return tt("validator.email.empty");
-  //   }
+  static String? email(String value) {
+    if (value.isEmpty) {
+      return t("validator.email.empty");
+    }
 
-  //   String pattern =
-  //       "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+";
+    String pattern =
+        "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+";
 
-  //   RegExp regExp = RegExp(pattern);
+    RegExp regExp = RegExp(pattern);
 
-  //   if (!regExp.hasMatch(value)) {
-  //     return tt("validator.email.invalid");
-  //   }
+    if (!regExp.hasMatch(value)) {
+      return t("validator.email.invalid");
+    }
 
-  //   return null;
-  // }
+    return null;
+  }
 
-  static String phone(String value) {
-    if (value?.isEmpty ?? true) {
+  static String? phone(String value) {
+    if (value.isEmpty) {
       return 'กรุณาใส่เบอร์โทรศัพท์';
     }
 
@@ -32,16 +34,16 @@ class Validator {
     return null;
   }
 
-  static String verificationCode(String value) {
-    if (value?.isEmpty ?? true) {
+  static String? verificationCode(String value) {
+    if (value.isEmpty) {
       return 'กรุณาใส่เลขยืนยันตัวตน';
     }
 
     return null;
   }
 
-  static String password(String value) {
-    if (value?.isEmpty ?? true) {
+  static String? password(String value) {
+    if (value.isEmpty) {
       return 'กรุณากรอกรหัสผ่าน';
     }
 
@@ -52,8 +54,8 @@ class Validator {
     return null;
   }
 
-  static String newPassword(String value) {
-    if (value?.isEmpty ?? true) {
+  static String? newPassword(String value) {
+    if (value.isEmpty) {
       return 'กรุณากรอกรหัสผ่าน';
     }
 

@@ -27,20 +27,20 @@ class Log extends ProviderObserver {
     _logger.i(message);
   }
 
-  static void warning<T>(T message, {Object exception, StackTrace stackTrace}) {
+  static void warning<T>(T message, {Object? exception, StackTrace? stackTrace}) {
     _logger.w(message, exception, stackTrace);
   }
 
-  static void error<T>(T message, {Object exception, StackTrace stackTrace}) {
+  static void error<T>(T message, {Object? exception, StackTrace? stackTrace}) {
     _logger.e(message, exception, stackTrace);
   }
 
-  static void wtf<T>(T message, {Object exception, StackTrace stackTrace}) {
+  static void wtf<T>(T message, {Object? exception, StackTrace? stackTrace}) {
     _logger.wtf(message, exception, stackTrace);
   }
 
   @override
-  void didUpdateProvider(ProviderBase provider, Object newValue) {
+  void didUpdateProvider(ProviderBase provider, Object? newValue) {
     verbose("\n${provider.name ?? provider.runtimeType}\n");
   }
 }

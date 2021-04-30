@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class BaseTile extends StatelessWidget {
-  final EdgeInsets padding;
-  final BoxConstraints constraints;
-  final Widget leading;
-  final Widget topLeft;
-  final Widget middleLeft;
-  final Widget middleRight;
-  final Widget topRight;
-  final Widget bottomLeft;
-  final Widget bottomRight;
-  final Function onTap;
+  final EdgeInsets? padding;
+  final BoxConstraints? constraints;
+  final Widget? leading;
+  final Widget? topLeft;
+  final Widget? middleLeft;
+  final Widget? middleRight;
+  final Widget? topRight;
+  final Widget? bottomLeft;
+  final Widget? bottomRight;
+  final Function? onTap;
 
   const BaseTile({
-    Key key,
+    Key? key,
     this.padding = const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
     this.constraints = const BoxConstraints(
       minHeight: 55,
@@ -31,7 +31,7 @@ class BaseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: this.onTap,
+      onTap: () => this.onTap!(),
       child: Container(
         padding: this.padding,
         constraints: this.constraints,
@@ -40,7 +40,7 @@ class BaseTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             this.leading ?? Container(),
-            if (this.leading != null) SizedBox(width: this.padding.left),
+            if (this.leading != null) SizedBox(width: this.padding!.left),
             if (this.topLeft != null ||
                 this.middleLeft != null ||
                 this.bottomLeft != null)
@@ -50,18 +50,18 @@ class BaseTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (this.topLeft != null) this.topLeft,
+                    if (this.topLeft != null) this.topLeft!,
                     if (this.middleLeft != null) const SizedBox(height: 5),
-                    if (this.middleLeft != null) this.middleLeft,
+                    if (this.middleLeft != null) this.middleLeft!,
                     if (this.bottomLeft != null) const SizedBox(height: 5),
-                    if (this.bottomLeft != null) this.bottomLeft,
+                    if (this.bottomLeft != null) this.bottomLeft!,
                   ],
                 ),
               ),
             if (this.topRight != null ||
                 this.middleRight != null ||
                 this.bottomRight != null)
-              SizedBox(width: this.padding.right),
+              SizedBox(width: this.padding!.right),
             if (this.topRight != null ||
                 this.middleRight != null ||
                 this.bottomRight != null)

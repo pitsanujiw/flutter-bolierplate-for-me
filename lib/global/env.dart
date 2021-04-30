@@ -13,10 +13,10 @@ enum EnvironmentMode {
 }
 
 class Environment {
-  EnvironmentMode _mode;
-  final String localStorageKey = "@carmana_";
-  final String appKey = 'base64:uvaL3KE+uQD1vGxYm5kWs01BQH3VNwNqeF1qY5rrTnI=';
-  String _apiUrl = "";
+  late EnvironmentMode _mode;
+  final String localStorageKey = "";
+  final String appKey = '';
+  late String _apiUrl = "";
   String get apiUrl => _apiUrl;
   Environment.development() {
     _apiUrl = "";
